@@ -190,12 +190,13 @@ class GameController(object):
                             self.pause.setPause(pauseTime=3, func=self.resetLevel)
     
     def checkFruitEvents(self):
-        if self.pellets.numEaten == 50 or self.pellets.numEaten == 140:
+        if self.pellets.numEaten == 5 or self.pellets.numEaten == 40:
             if self.fruit is None:
                 self.fruit = Fruit(self.nodes.getNodeFromTiles(9, 20), self.level)
                 print(self.fruit)
         if self.fruit is not None:
             if self.pacman.collideCheck(self.fruit):
+                self.pacman.boost()
                 self.updateScore(self.fruit.points)
                 self.textgroup.addText(str(self.fruit.points), WHITE, self.fruit.position.x, self.fruit.position.y, 8, time=1)
                 fruitCaptured = False

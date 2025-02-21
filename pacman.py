@@ -14,6 +14,11 @@ class Pacman(Entity):
         self.setBetweenNodes(LEFT)
         self.alive = True
         self.sprites = PacmanSprites(self)
+        self.EndBoost = 0
+
+    def boost(self):
+        self.setSpeed(200)
+        self.EndBoost = pygame.time.get_ticks() + 4000
 
     def reset(self):
         Entity.reset(self)
@@ -43,6 +48,9 @@ class Pacman(Entity):
         self.sprites.update(dt)
         self.position += self.directions[self.direction]*self.speed*dt
         direction = self.getValidKey()
+        if pygame.time.get_ticks() >= self.EndBoost:
+            self.setSpeed(100)
+            self.EndBoost = 0
         if self.overshotTarget():
             self.node = self.target
             if self.node.neighbors[PORTAL] is not None:
