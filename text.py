@@ -10,6 +10,7 @@ class Text(object):
         self.size = size
         self.visible = visible
         self.position = Vector2(x, y)
+        self.timer = 0
         self.lifespan = time
         self.label = None
         self.destroy = False
